@@ -14,7 +14,6 @@ Para utilizar com apache, instale a lib `# apt install libapache2-mod-php` e adi
 
 *  O arquivo /etc/apache2/sites-available/eclasse.io.conf deve ficar assim:  
 
-```
 <VirtualHost *:80>	
 	ServerAdmin email@email.com
 	DocumentRoot /var/www/html/eclasse.io
@@ -24,7 +23,6 @@ Para utilizar com apache, instale a lib `# apt install libapache2-mod-php` e adi
 	ErrorLog ${APACHE_LOG_DIR}/error.log
 	CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
-```
 # vim: syntax=apache ts=4 sw=4 sts=4 sr noet
 
 Adicione o mod_rewrite com `sudo a2enmod rewrite`. Assegure-se de que na configuração de diretórios, o método `AllowOverride` esteja em `All`, adicione as regras ao firewall com o ufw (caso ele esteja inativo, execute `# ufw enable`) `# ufw allow 'Apache Full'` e verifique se os planos já estão rodando com `# ufw status`. Finalize executando `# systemctl restart apache2`.
