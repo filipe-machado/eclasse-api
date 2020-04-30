@@ -1,0 +1,25 @@
+version: '3.1'
+
+# services:
+#   db:
+#     image: mysql:5.6
+#     command: --default-authentication-plugin=mysql_native_password
+#     container_name: eclasse_database
+#     volumes:
+#       - ./../data/mysql:/var/lib/mysql
+#     environment:
+#       MYSQL_USER: root
+#       MYSQL_ROOT_PASSWORD: guitar24
+#       MYSQL_DATABASE: eclasse_bd
+#     ports:
+#       - 3306:3306
+
+services:
+  db:
+    image: postgres
+    restart: always
+    container_name: eclasse_database
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: guitar24
+      POSTGRES_DB: eclasse_bd
