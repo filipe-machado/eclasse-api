@@ -16,6 +16,7 @@ use const src\DEVELOP;
 use const src\{
     ERROR0001,
     ERROR0002,
+    ERROR0003,
     ERROR0004,
     ERROR0005,
     ERROR0006
@@ -26,16 +27,13 @@ final class AuthController {
     public function login(Request $request, Response $response, array $args): Response 
     {
         $data = $request->getParsedBody();
+        
         $email = $data['email'];
         $senha = $data['senha'];
-        $expiredAt = $data['expire'] ?? (new DateTime())->modify('+2 days')->format('Y-m-d H:i:s');
 
-        $usuarioDAO = new UsuarioDAO();
-        $usuario = $usuarioDAO->getUsuarioPorEmail($email);
-
-        if (is_null($usuario)) 
+        if (strlen($email) == 0) 
         {
-            $result = new ExceptionController(new EclasseException(''), 'o usuário não foi informado', DEVELOP['email'], 400, ERROR0001['id'], ERROR0001['value']);
+            $result = new ExceptionController(new EclasseException(''), 'usuário não informado', DEVELOP['email'], 400, ERROR0001['id'], ERROR0001['value']);
             return $result->test($request, $response, $args);
         }
 
@@ -46,6 +44,17 @@ final class AuthController {
 
         if (strlen($senha) < 6) {
             $result = new ExceptionController(new EclasseException(''), 'a senha deve ter 6 ou mais caracteres', DEVELOP['email'], 400, ERROR0006['id'], ERROR0006['value']);
+            return $result->test($request, $response, $args);
+        }
+
+        $expiredAt = $data['expire'] ?? (new DateTime())->modify('+2 days')->format('Y-m-d H:i:s');
+
+        $usuarioDAO = new UsuarioDAO();
+        $usuario = $usuarioDAO->getUsuarioPorEmail($email);
+        
+        if (is_null($usuario)) 
+        {
+            $result = new ExceptionController(new EclasseException(''), 'usuário não cadastrado', DEVELOP['email'], 400, ERROR0003['id'], ERROR0003['value']);
             return $result->test($request, $response, $args);
         }
             
@@ -92,7 +101,7 @@ final class AuthController {
         $usuario->setCriadoEm(date('Ymd H:i:s'));
         $usuario->setAtualizadoEm(date('Ymd H:i:s'));
         $usuario->setAtivo($data['ativo'] ?? 1);
-        $usuario->setGrupoId($data['grupo_id'] ?? 1);
+        $usuario->setGrupoId($data['grupo_id']);
         $usuarioDAO->insertUsuario($usuario);
 
         $response = $response->withJson([
@@ -161,8 +170,10 @@ final class AuthController {
         $response = $response->withJson([
             "token" => $token,
             "refresh_token" => $refreshToken,
-            "id" => $usuario->getUsuarioId()
-        ]);
+            "id" => $usuario->getUsuarioId(),
+            'success' => true,
+            'message' => 'usuário logado com sucesso'
+        ]);        
 
         return $response;
     }
