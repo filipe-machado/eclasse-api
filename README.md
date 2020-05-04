@@ -11,6 +11,7 @@ Para fazer backup do banco, execute o arquivo de backup `$ ./backup.sh` ou execu
 
 ## Apache
 Para utilizar com apache, instale a lib `# apt install libapache2-mod-php` e adicione o diretório à pasta `/var/www/html` com o comando `# ln -s /pasta/para/eclasse-api /var/www/html`, depois adicione ao virtual host com `sudo cp /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/eclasse.io.conf` e disponibilize o host com `# a2ensite eclasse.io`. 
+No arquivo `/etc/apache2/mods-enabled/dir.conf` lembre-se de colocar arquivos php para serem carregados primeiro.
 
 *  O arquivo /etc/apache2/sites-available/eclasse.io.conf deve ficar assim:  
 
