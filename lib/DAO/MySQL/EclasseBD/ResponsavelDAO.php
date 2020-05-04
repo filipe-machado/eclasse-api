@@ -14,13 +14,13 @@ class ResponsavelDAO extends Connect {
         $responsavel = '';
         switch ($table) {
             case 'nome':
-                $responsavel = $this->_pdo->query("SELECT * FROM responsaveis WHERE nome LIKE \"%$query%\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $responsavel = $this->_pdo->query("SELECT * FROM responsaveis WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                $responsavel = $this->_pdo->query("SELECT * FROM responsaveis WHERE id = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $responsavel = $this->_pdo->query("SELECT * FROM responsaveis WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'documento':
-                $responsavel = $this->_pdo->query("SELECT * FROM responsaveis WHERE documento = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $responsavel = $this->_pdo->query("SELECT * FROM responsaveis WHERE documento = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
                 $responsavel = $this->_pdo->query("SELECT * FROM responsaveis;")->fetchAll(\PDO::FETCH_ASSOC);

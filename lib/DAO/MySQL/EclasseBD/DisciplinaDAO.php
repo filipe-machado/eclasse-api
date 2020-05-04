@@ -14,16 +14,16 @@ class DisciplinaDAO extends Connect {
         $disciplina = '';
         switch ($table) {
             case 'nome':
-                $disciplina = $this->_pdo->query("SELECT * FROM disciplinas WHERE nome LIKE \"%$query%\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $disciplina = $this->_pdo->query("SELECT * FROM disciplinas WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'nome_exato':
-                $disciplina = $this->_pdo->query("SELECT * FROM disciplinas WHERE nome = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $disciplina = $this->_pdo->query("SELECT * FROM disciplinas WHERE nome = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'ativo':
-                $disciplina = $this->_pdo->query("SELECT * FROM disciplinas WHERE ativo = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $disciplina = $this->_pdo->query("SELECT * FROM disciplinas WHERE ativo = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                $disciplina = $this->_pdo->query("SELECT * FROM disciplinas WHERE id = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $disciplina = $this->_pdo->query("SELECT * FROM disciplinas WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
                 $disciplina = $this->_pdo->query("SELECT * FROM disciplinas;")->fetchAll(\PDO::FETCH_ASSOC);

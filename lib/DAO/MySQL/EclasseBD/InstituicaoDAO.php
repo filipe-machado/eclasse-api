@@ -16,19 +16,20 @@ class InstituicaoDAO extends Connect
         $instituicao = '';
         switch ($table) {
             case 'nome':
-                $instituicao = $this->_pdo->query("SELECT * FROM instituicoes WHERE nome LIKE \"%$query%\";")->fetchAll(\PDO::FETCH_ASSOC);
+                // PHP7.3 or above -> '%$query%'
+                $instituicao = $this->_pdo->query("SELECT id, nome, email, endereco, cidade, uf FROM instituicoes WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'cidade':
-                $instituicao = $this->_pdo->query("SELECT * FROM instituicoes WHERE cidade LIKE \"%$query%\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $instituicao = $this->_pdo->query("SELECT id, nome, email, endereco, cidade, uf FROM instituicoes WHERE cidade LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                 $instituicao = $this->_pdo->query("SELECT * FROM instituicoes WHERE id = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                 $instituicao = $this->_pdo->query("SELECT id, nome, email, endereco, cidade, uf FROM instituicoes WHERE id=$query;")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'uf':
-                $instituicao = $this->_pdo->query("SELECT * FROM instituicoes WHERE uf = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $instituicao = $this->_pdo->query("SELECT id, nome, email, endereco, cidade, uf FROM instituicoes WHERE uf = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
-                $instituicao = $this->_pdo->query("SELECT * FROM instituicoes;")->fetchAll(\PDO::FETCH_ASSOC);
+                $instituicao = $this->_pdo->query("SELECT id, nome, email, endereco, cidade, uf FROM instituicoes;")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
         }
         return $instituicao;

@@ -116,9 +116,9 @@ final class DisciplinaController {
         }
 
         $disciplina = new DisciplinaModel();
-        $data['nome'] && $disciplina->setNome($data['nome']);
-        $data['ativo'] && $disciplina->setAtivo($data['ativo']);
-        $data['created_at'] && $disciplina->setCreatedAt($data['created_at']);
+        /* isset($data['nome']) && $disciplina->setNome($data['nome']);
+        isset($data['ativo']) && $disciplina->setAtivo($data['ativo']);
+        isset($data['created_at']) && $disciplina->setCreatedAt($data['created_at']); */
         $disciplina->setUpdatedAt(date('Ymd H:i:s'));
 
         $disciplinaDAO->patchDisciplina($disciplina, $data, $data['id']);

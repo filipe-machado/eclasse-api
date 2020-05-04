@@ -115,9 +115,9 @@ final class TurmaController {
         }
 
         $turma = new TurmaModel();
-        $data['nome'] && $turma->setNome($data['nome']);
+        /* $data['nome'] && $turma->setNome($data['nome']);
         $data['ativo'] && $turma->setAtivo($data['ativo']);
-        $data['created_at'] && $turma->setCreatedAt($data['created_at']);
+        $data['created_at'] && $turma->setCreatedAt($data['created_at']); */
         $turma->setUpdatedAt(date('Ymd H:i:s'));
 
         $turmaDAO->patchTurma($turma, $data, $data['id']);

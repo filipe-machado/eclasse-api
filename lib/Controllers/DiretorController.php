@@ -125,12 +125,12 @@ final class DiretorController {
         }
 
         $diretor = new DiretorModel();
-        $data['nome'] && $diretor->setNome($data['nome']);
-        $data['documento'] && $diretor->setDocumento($data['documento']);
-        $data['documento_id'] && $diretor->setDocumentoId($data['documento_id']);
-        $data['ativo'] && $diretor->setAtivo($data['ativo']);
-        $data['inicio'] && $diretor->setInicio($data['inicio']);
-        $data['ativo'] && $diretor->setAtivo($data['ativo']);
+        /* isset($data['nome']) && $diretor->setNome($data['nome']);
+        isset($data['documento']) && $diretor->setDocumento($data['documento']);
+        isset($data['documento_id']) && $diretor->setDocumentoId($data['documento_id']);
+        isset($data['ativo']) && $diretor->setAtivo($data['ativo']);
+        isset($data['inicio']) && $diretor->setInicio($data['inicio']);
+        isset($data['ativo']) && $diretor->setAtivo($data['ativo']); */
         $diretor->setUpdatedAt(date('Ymd H:i:s'));
 
         $diretorDAO->patchDiretor($diretor, $data, $data['id']);

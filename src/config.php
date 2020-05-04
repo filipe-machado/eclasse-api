@@ -16,10 +16,12 @@ function config(): \Slim\Container
 const DEVELOP = ['email' => 'develop@w3i.com.br'];
 
 // TODO: ERROS USUARIO
-const ERROR0001 =  [ 'id' => 1001, 'value' => 'usuário não informado'];
-const ERROR0002 =  [ 'id' => 1002, 'value' => 'senha não informada'];
-const ERROR0003 =  [ 'id' => 1003, 'value' => 'usuário não cadastrado'];
-const ERROR0004 =  [ 'id' => 1004, 'value' => 'senha incorreta'];
+const ERROR0001 =  [ 'id' => 0001, 'value' => 'usuário não informado'];
+const ERROR0002 =  [ 'id' => 0002, 'value' => 'senha não informada'];
+const ERROR0003 =  [ 'id' => 0003, 'value' => 'usuário não cadastrado'];
+const ERROR0004 =  [ 'id' => 0004, 'value' => 'senha incorreta'];
+const ERROR0005 =  [ 'id' => 0005, 'value' => 'email já cadastrado'];
+const ERROR0006 =  [ 'id' => 0005, 'value' => 'senha deve ter 6 ou mais caracteres'];
 // TODO: ERROS DIRETOR
 const ERROR1001 =  [ 'id' => 1001, 'value' => 'diretor não informado'];
 const ERROR1002 =  [ 'id' => 1002, 'value' => 'diretor não encontrado'];

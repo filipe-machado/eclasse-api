@@ -15,13 +15,13 @@ class DiretorDAO extends Connect
         $diretor = '';
         switch ($table) {
             case 'nome':
-                $diretor = $this->_pdo->query("SELECT * FROM diretores WHERE nome LIKE \"%$query%\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $diretor = $this->_pdo->query("SELECT * FROM diretores WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'documento':
-                $diretor = $this->_pdo->query("SELECT * FROM diretores WHERE documento = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $diretor = $this->_pdo->query("SELECT * FROM diretores WHERE documento = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                $diretor = $this->_pdo->query("SELECT * FROM diretores WHERE id = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $diretor = $this->_pdo->query("SELECT * FROM diretores WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
                 $diretor = $this->_pdo->query("SELECT * FROM diretores;")->fetchAll(\PDO::FETCH_ASSOC);

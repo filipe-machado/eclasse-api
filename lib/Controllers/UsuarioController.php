@@ -129,18 +129,18 @@ final class UsuarioController {
             return $result->test($request, $response, $args);
         }
         if (count($usuarioDAO->find('id', $data['id'])) === 0) {
-            $result = new ExceptionController(new EclasseException(''), '', DEVELOP['email'], 400, ERROR0002['id'], ERROR0002['value']);
+            $result = new ExceptionController(new EclasseException(''), '', DEVELOP['email'], 400, ERROR0003['id'], ERROR0003['value']);
             return $result->test($request, $response, $args);
         }
 
         $usuario = new UsuarioModel();
-        $data['usuario'] && $usuario->setUsuario($data['usuario']);
+        /* $data['usuario'] && $usuario->setUsuario($data['usuario']);
         $data['email'] && $usuario->setEmail($data['email']);
-        $data['senha'] && $usuario->setSenha(password_hash($data['senha'], PASSWORD_ARGON2I));
         $data['ativo'] && $usuario->setAtivo($data['ativo'] ?? 1);
         $data['created_at'] && $usuario->setCriadoEm(date('Ymd H:i:s'));
+        $data['grupo'] && $usuario->setGrupoId($data['grupo']); */
+        isset($data['senha']) && $usuario->setSenha(password_hash($data['senha'], PASSWORD_ARGON2I));
         $usuario->setAtualizadoEm(date('Ymd H:i:s'));
-        $data['grupo'] && $usuario->setGrupoId($data['grupo']);
 
         $usuarioDAO->patchUsuario($usuario, $data, $data['id']);
 

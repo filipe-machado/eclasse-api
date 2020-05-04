@@ -14,10 +14,10 @@ class DocumentoDAO extends Connect {
         $documento = '';
         switch ($table) {
             case 'nome':
-                $documento = $this->_pdo->query("SELECT * FROM documentos WHERE nome LIKE \"%$query%\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $documento = $this->_pdo->query("SELECT * FROM documentos WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                $documento = $this->_pdo->query("SELECT * FROM documentos WHERE id = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $documento = $this->_pdo->query("SELECT * FROM documentos WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
                 $documento = $this->_pdo->query("SELECT * FROM documentos;")->fetchAll(\PDO::FETCH_ASSOC);

@@ -9,7 +9,7 @@ putenv('DISPLAY_ERRORS_DETAILS=' . true);
  */
 
 putenv('ECLASSE_DB_DRIVE=pgsql');
-putenv('ECLASSE_DB_HOST=172.20.0.2');
+putenv('ECLASSE_DB_HOST=172.18.0.2');
 putenv('ECLASSE_DB_DBNAME=eclasse_bd');
 putenv('ECLASSE_DB_USER=root');
 putenv('ECLASSE_DB_PASSWORD=guitar24');

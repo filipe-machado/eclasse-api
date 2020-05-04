@@ -122,12 +122,12 @@ final class ProfessorController {
         }
 
         $professor = new ProfessorModel();
-        $data['nome'] && $professor->setNome($data['nome']);
-        $data['documento'] && $professor->setDocumento($data['documento']);
-        $data['documento_id'] && $professor->setDocumentoId($data['documento_id']);
-        $data['fotosUrl'] && $professor->setFotoUrls($data['fotosUrl']);
-        $data['ativo'] && $professor->setAtivo($data['ativo']);
-        $data['created_at'] && $professor->setCreatedAt($data['created_at']);
+        /* isset($data['nome']) && $professor->setNome($data['nome']);
+        isset($data['documento']) && $professor->setDocumento($data['documento']);
+        isset($data['documento_id']) && $professor->setDocumentoId($data['documento_id']);
+        isset($data['fotosUrl']) && $professor->setFotoUrls($data['fotosUrl']);
+        isset($data['ativo']) && $professor->setAtivo($data['ativo']);
+        isset($data['created_at']) && $professor->setCreatedAt($data['created_at']); */
         $professor->setUpdatedAt(date('Ymd H:i:s'));
 
         $professorDAO->patchProfessor($professor, $data, $data['id']);

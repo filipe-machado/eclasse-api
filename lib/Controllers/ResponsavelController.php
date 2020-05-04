@@ -124,13 +124,13 @@ final class ResponsavelController {
         }
 
         $responsavel = new ResponsavelModel();
-        $data['ativo'] && $responsavel->setAtivo($data['ativo']);
-        $data['documento'] && $responsavel->setDocumento($data['documento']);
-        $data['documento_id'] && $responsavel->setDocumentoId($data['documento_id']);
-        $data['email'] && $responsavel->setEmail($data['email']);
-        $data['endereco'] && $responsavel->setEndereco($data['endereco']);
-        $data['nome'] && $responsavel->setNome($data['nome']);
-        $data['telefone'] && $responsavel->setTelefone($data['telefone']);
+        /* isset($data['ativo']) && $responsavel->setAtivo($data['ativo']);
+        isset($data['documento']) && $responsavel->setDocumento($data['documento']);
+        isset($data['documento_id']) && $responsavel->setDocumentoId($data['documento_id']);
+        isset($data['email']) && $responsavel->setEmail($data['email']);
+        isset($data['endereco']) && $responsavel->setEndereco($data['endereco']);
+        isset($data['nome']) && $responsavel->setNome($data['nome']);
+        isset($data['telefone']) && $responsavel->setTelefone($data['telefone']); */
         $responsavel->setUpdatedAt(date('Ymd H:i:s'));
 
         $responsavelDAO->patchResponsavel($responsavel, $data, $data['id']);

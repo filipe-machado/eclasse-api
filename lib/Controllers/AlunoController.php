@@ -135,17 +135,17 @@ final class AlunoController {
         }
 
         $aluno = new AlunoModel();
-        $data['nome'] && $aluno->setNome($data['nome']);
-        $data['data_matricula'] && $aluno->setDataMatricula($data['data_matricula'] ?? date('Ymd'));
-        $data['data_nasc'] && $aluno->setDataNasc($data['data_nasc']);
-        $data['documento'] && $aluno->setDocumento($data['documento']);
-        $data['documento_id'] && $aluno->setDocumentoId($data['documento_id'] ?? 1);
-        $data['estudando'] && $aluno->setEstudando($data['estudando'] ?? 1);
-        $data['finalizado'] && $aluno->setFinalizado($data['finalizado'] ?? 0);
-        $data['fotosUrls'] && $aluno->setFotoUrls($data['fotosUrls'] ?? '');
-        $data['transferido'] && $aluno->setTransferido($data['transferido' ?? 0]);
-        $data['ativo'] && $aluno->setAtivo($data['ativo'] ?? 1);
-        $data['tipo_matricula'] && $aluno->setTipoMatricula($data['tipo_matricula'] ?? 'matricula');
+        /* isset($data['nome']) && $aluno->setNome($data['nome']);
+        isset($data['data_matricula']) && $aluno->setDataMatricula($data['data_matricula'] ?? date('Ymd'));
+        isset($data['data_nasc']) && $aluno->setDataNasc($data['data_nasc']);
+        isset($data['documento']) && $aluno->setDocumento($data['documento']);
+        isset($data['documento_id']) && $aluno->setDocumentoId($data['documento_id'] ?? 1);
+        isset($data['estudando']) && $aluno->setEstudando($data['estudando'] ?? 1);
+        isset($data['finalizado']) && $aluno->setFinalizado($data['finalizado'] ?? 0);
+        isset($data['fotosUrls']) && $aluno->setFotoUrls($data['fotosUrls'] ?? '');
+        isset($data['transferido']) && $aluno->setTransferido($data['transferido' ?? 0]);
+        isset($data['ativo']) && $aluno->setAtivo($data['ativo'] ?? 1);
+        isset($data['tipo_matricula']) && $aluno->setTipoMatricula($data['tipo_matricula'] ?? 'matricula'); */
         $aluno->setUpdatedAt(date('Ymd H:i:s'));
 
         $alunoDAO->patchAluno($aluno, $data, $data['id']);

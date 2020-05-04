@@ -206,13 +206,13 @@ final class InstituicaoController {
         }
 
         $instituicao = new InstituicaoModel();
-        $data['nome'] && $instituicao->setNome($data['nome']);
-        $data['endereco'] && $instituicao->setEndereco($data['endereco']);
-        $data['cidade'] && $instituicao->setCidade($data['cidade']);
-        $data['uf'] && $instituicao->setUf($data['uf']);
-        $data['diretor_id'] && $instituicao->setDiretorId($data['diretor_id']);
-        $data['ativo'] && $instituicao->setAtivo($data['ativo']);
-        $data['created_at'] && $instituicao->setCriadoEm($data['created_at']);
+        /* isset($data['nome']) && $instituicao->setNome($data['nome']);
+        isset($data['endereco']) && $instituicao->setEndereco($data['endereco']);
+        isset($data['cidade']) && $instituicao->setCidade($data['cidade']);
+        isset($data['uf']) && $instituicao->setUf($data['uf']);
+        isset($data['diretor_id']) && $instituicao->setDiretorId($data['diretor_id']);
+        isset($data['ativo']) && $instituicao->setAtivo($data['ativo']);
+        isset($data['created_at']) && $instituicao->setCriadoEm($data['created_at']); */
         $instituicao->setAtualizadoEm(date('Ymd H:i:s'));
         
         $instituicaoDAO->patchInstituicao($instituicao, $data, $data['id']);

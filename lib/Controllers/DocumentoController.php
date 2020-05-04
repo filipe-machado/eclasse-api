@@ -114,9 +114,9 @@ final class DocumentoController {
         }
 
         $documento = new DocumentoModel();
-        $data['nome'] && $documento->setNome($data['nome']);
-        $data['ativo'] && $documento->setAtivo($data['ativo']);
-        $data['created_at'] && $documento->setCriadoEm($data['created_at']);
+        /* isset($data['nome']) && $documento->setNome($data['nome']);
+        isset($data['ativo']) && $documento->setAtivo($data['ativo']);
+        isset($data['created_at']) && $documento->setCriadoEm($data['created_at']); */
         $documento->setAtualizadoEm(date('Ymd H:i:s'));
 
         $documentoDAO->patchDocumento($documento, $data, $data['id']);

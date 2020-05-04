@@ -69,23 +69,48 @@ class UsuarioDAO extends Connect {
 
     public function find(string $table, $query)
     {
-        $usuario = $this->_pdo->query(
-            "SELECT
-                usuario,
-                email,
-                created_at,
-                updated_at,
-                ativo,
-                grupo_id 
-            FROM usuarios WHERE $table LIKE \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+        switch ($table) {
+            case 'id':
+                $usuario = $this->_pdo->query(
+                    "SELECT
+                        usuario,
+                        email,
+                        created_at,
+                        updated_at,
+                        ativo,
+                        grupo_id 
+                    FROM usuarios WHERE $table = $query;")->fetchAll(\PDO::FETCH_ASSOC);
+                break;
+            
+            default:
+            $usuario = $this->_pdo->query(
+                "SELECT
+                    usuario,
+                    email,
+                    created_at,
+                    updated_at,
+                    ativo,
+                    grupo_id 
+                FROM usuarios WHERE $table LIKE '$query';")->fetchAll(\PDO::FETCH_ASSOC);
+                break;
+        }
+        
         return $usuario;
     }
 
     public function insertUsuario(UsuarioModel $usuario): void
     {
         $statement = $this->_pdo->prepare(
-            "INSERT INTO usuarios VALUES(
-                null,
+            "INSERT INTO usuarios (
+                usuario,
+                email,
+                senha,
+                ativo,
+                created_at,
+                updated_at,
+                grupo_id
+            )            
+            VALUES(
                 :usuario,
                 :email,
                 :senha,

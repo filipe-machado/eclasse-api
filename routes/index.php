@@ -26,12 +26,16 @@ use App\Middlewares\JwtDateTimeMiddleware;
 
 $app = new Slim\App(config());
 
+$app->options('/{routes:.+}', function ($request, $response, $args) {
+    return $response;
+});
+
 $app->add(function ($req, $res, $next) {
     $response = $next($req, $res);
     return $response
-        ->withHeader('Access-Control-Allow-Origin', 'http://eclasse.io:3000')
-        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+        ->withHeader('Access-Control-Allow-Origin', '*')
+        ->withHeader('Access-Control-Allow-Headers', '*')
+        ->withHeader('Access-Control-Allow-Methods', '*');
 });
 
 $app->POST('/refresh-token', AuthController::class . ':refreshToken');
@@ -45,24 +49,17 @@ $app->GET('/teste', function () {
 ->add(jwtAuth()); */
 
 $app->group('/v1', function () use ($app) {
-    $app->POST('/usuarios', UsuarioController::class . ':setUsuarios');
     $app->POST('/login', AuthController::class . ':login');
-});
-
-$app->add(function ($req, $res, $next) {
-    $response = $next($req, $res);
-    return $response
-        ->withHeader('Access-Control-Allow-Origin', 'http://eclasse.io:3000', 'https://filipe-machado.github.io/eclasse-app', 'http://187.23.94.198:8080')
-        ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-        ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    $app->POST('/register', AuthController::class . ':register');
+    $app->GET('/instituicoes[/{instituicao}]', InstituicaoController::class . ':getInstituicoes');
+    $app->GET('/instituicoes/cidade/{cidade}', InstituicaoController::class . ':getInstituicoesPorCidade');
+    $app->GET('/instituicoes/uf/{uf}', InstituicaoController::class . ':getInstituicoesPorUF');
+    $app->GET('/grupos[/{grupo}]', GrupoController::class . ':getGrupos');
 });
 
 $app->group('/v1', function() use ($app) {
     // TODO: INSTITUICOES
 
-    $app->GET('/instituicoes[/{instituicao}]', InstituicaoController::class . ':getInstituicoes');
-    $app->GET('/instituicoes/cidade/{cidade}', InstituicaoController::class . ':getInstituicoesPorCidade');
-    $app->GET('/instituicoes/uf/{uf}', InstituicaoController::class . ':getInstituicoesPorUF');
     $app->POST('/instituicoes', InstituicaoController::class . ':setInstituicoes');
     $app->PUT('/instituicoes', InstituicaoController::class . ':putInstituicoes');
     $app->PATCH('/instituicoes', InstituicaoController::class . ':patchInstituicoes');
@@ -120,7 +117,6 @@ $app->group('/v1', function() use ($app) {
 
     // TODO: GRUPOS
 
-    $app->GET('/grupos[/{grupo}]', GrupoController::class . ':getGrupos');
     $app->POST('/grupos', GrupoController::class . ':setGrupos');
     $app->PUT('/grupos', GrupoController::class . ':putGrupos');
     $app->PATCH('/grupos', GrupoController::class . ':patchGrupos');

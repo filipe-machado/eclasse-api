@@ -14,16 +14,19 @@ class GrupoDAO extends Connect {
         $grupo = '';
         switch ($table) {
             case 'ativo':
-                $grupo = $this->_pdo->query("SELECT * FROM grupos WHERE ativo = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos WHERE ativo = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'valor':
-                $grupo = $this->_pdo->query("SELECT * FROM grupos WHERE valor = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos WHERE valor = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
+                break;
+            case 'nome':
+                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos WHERE nome = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                $grupo = $this->_pdo->query("SELECT * FROM grupos WHERE id = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
-                $grupo = $this->_pdo->query("SELECT * FROM grupos;")->fetchAll(\PDO::FETCH_ASSOC);
+                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos;")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
         }
         return $grupo;
@@ -32,29 +35,29 @@ class GrupoDAO extends Connect {
     public function insertGrupo(GrupoModel $grupo): void
     {
         $statement = $this->_pdo->prepare(
-            'INSERT INTO grupos
-                (
-                    id,
-                    ativo,
-                    valor,
-                    permissoes,
-                    created_at,
-                    updated_at
-                )  
-            VALUE(
-                null, 
+            "INSERT INTO grupos(
+                ativo,
+                valor,
+                nome,
+                permissoes,
+                created_at,
+                updated_at
+            )
+            VALUES(
                 :ativo,
                 :valor,
+                :nome,
                 :permissoes,
                 :created_at,
                 :updated_at
             )
-        '
+        "
         );
 
         $statement->execute([
             'ativo' => $grupo->getAtivo(),
             'valor' => $grupo->getValor(),
+            'nome' => $grupo->getNome(),
             'permissoes' => $grupo->getPermissoes(),
             'created_at' => $grupo->getCreatedAt(),
             'updated_at' => $grupo->getUpdatedAt()
@@ -68,6 +71,7 @@ class GrupoDAO extends Connect {
             SET
                 ativo = :ativo,
                 valor = :valor,
+                nome = :nome,
                 permissoes = :permissoes,
                 updated_at = :updated_at
             WHERE id = :id;'
@@ -76,6 +80,7 @@ class GrupoDAO extends Connect {
             'id' => $query,
             'ativo' => $grupo->getAtivo(),
             'valor' => $grupo->getValor(),
+            'nome' => $grupo->getNome(),
             'permissoes' => $grupo->getPermissoes(),
             'updated_at' => $grupo->getUpdatedAt()
         ]);

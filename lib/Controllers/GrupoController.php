@@ -59,6 +59,7 @@ final class GrupoController {
         $grupo = new GrupoModel();
         $grupo->setValor($data['valor']);
         $grupo->setPermissoes($data['permissoes']);
+        $grupo->setNome($data['nome']);
         $grupo->setAtivo($data['ativo'] ?? 1);
         $grupo->setCreatedAt(date('Ymd H:i:s'));
         $grupo->setUpdatedAt(date('Ymd H:i:s'));
@@ -87,6 +88,7 @@ final class GrupoController {
 
         $grupo = new grupoModel();
         $grupo->setValor($data['valor']);
+        $grupo->setNome($data['nome']);
         $grupo->setPermissoes($data['permissoes']);
         $grupo->setAtivo($data['ativo']);
         $grupo->setUpdatedAt(date('Ymd H:i:s'));
@@ -115,10 +117,11 @@ final class GrupoController {
         }
 
         $grupo = new grupoModel();
-        $data['valor'] && $grupo->setValor($data['valor']);
-        $data['ativo'] && $grupo->setAtivo($data['ativo']);
-        $data['permissoes'] && $grupo->setPermissoes($data['permissoes']);
-        $data['created_at'] && $grupo->setCreatedAt($data['created_at']);
+        /* isset($data['valor']) && $grupo->setValor($data['valor']);
+        isset($data['ativo']) && $grupo->setAtivo($data['ativo']);
+        isset($data['nome']) && $grupo->setNome($data['nome']);
+        isset($data['permissoes']) && $grupo->setPermissoes($data['permissoes']);
+        isset($data['created_at']) && $grupo->setCreatedAt($data['created_at']); */
         $grupo->setUpdatedAt(date('Ymd H:i:s'));
 
         $grupoDAO->patchGrupo($grupo, $data, $data['id']);

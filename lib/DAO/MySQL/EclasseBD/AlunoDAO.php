@@ -14,25 +14,25 @@ class AlunoDAO extends Connect {
         $aluno = '';
         switch ($table) {
             case 'nome':
-                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE nome LIKE \"%$query%\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE id = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'documento':
-                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE documento = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE documento = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'estudando':
-                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE estudando = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE estudando = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'finalizado':
-                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE finalizado = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE finalizado = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'transferido':
-                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE transferido = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE transferido = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'tipo_matricula':
-                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE tipo_matricula = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE tipo_matricula = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
                 $aluno = $this->_pdo->query("SELECT * FROM alunos;")->fetchAll(\PDO::FETCH_ASSOC);

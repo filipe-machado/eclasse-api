@@ -14,13 +14,13 @@ class ProfessorDAO extends Connect {
         $professor = '';
         switch ($table) {
             case 'nome':
-                $professor = $this->_pdo->query("SELECT * FROM professores WHERE nome LIKE \"%$query%\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $professor = $this->_pdo->query("SELECT * FROM professores WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'documento':
-                $professor = $this->_pdo->query("SELECT * FROM professores WHERE documento = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $professor = $this->_pdo->query("SELECT * FROM professores WHERE documento = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                $professor = $this->_pdo->query("SELECT * FROM professores WHERE id = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $professor = $this->_pdo->query("SELECT * FROM professores WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
                 $professor = $this->_pdo->query("SELECT * FROM professores;")->fetchAll(\PDO::FETCH_ASSOC);

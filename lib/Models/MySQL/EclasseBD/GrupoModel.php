@@ -12,6 +12,8 @@ class GrupoModel {
     private $id;
     /* @var string $permissoes  */
     private $permissoes;
+    /* @var string $nome  */
+    private $nome;
     /* @var int $ativo  */
     private $ativo;
     /* @var int $valor  */
@@ -54,6 +56,24 @@ class GrupoModel {
     public function setPermissoes(string $permissoes): GrupoModel
     {
         $this->permissoes = $permissoes;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */ 
+    public function getNome(): string
+    {
+        return $this->nome;
+    }
+
+    /**
+     * @param string $nome
+     * @return self
+     */ 
+    public function setNome(string $nome): GrupoModel
+    {
+        $this->nome = $nome;
         return $this;
     }
 

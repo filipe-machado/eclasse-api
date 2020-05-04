@@ -14,10 +14,10 @@ class TurmaDAO extends Connect {
         $turma = '';
         switch ($table) {
             case 'nome':
-                $turma = $this->_pdo->query("SELECT * FROM turmas WHERE nome LIKE \"%$query%\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $turma = $this->_pdo->query("SELECT * FROM turmas WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                $turma = $this->_pdo->query("SELECT * FROM turmas WHERE id = \"$query\";")->fetchAll(\PDO::FETCH_ASSOC);
+                $turma = $this->_pdo->query("SELECT * FROM turmas WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
                 $turma = $this->_pdo->query("SELECT * FROM turmas;")->fetchAll(\PDO::FETCH_ASSOC);
