@@ -65,6 +65,7 @@ final class DiretorController {
         $documento = isset($data['documento']) ? $documentoDAO->find('id', $data['documento_id']) : '';
         $diretor = new DiretorModel();
         $diretor->setNome($data['nome']);
+        $diretor->setEmail($data['email']);
         $diretor->setDocumento($data['documento'] ?? '');
         $diretor->setDocumentoId($data['documento_id'] ?? 1);
         $diretor->setAtivo($data['ativo'] ?? 1);
@@ -94,6 +95,7 @@ final class DiretorController {
 
         $diretor = new DiretorModel();
         $diretor->setNome($data['nome']);
+        $diretor->setEmail($data['email']);
         $diretor->setDocumento($data['documento']);
         $diretor->setDocumentoId($data['documento_id']);
         $diretor->setAtivo($data['ativo']);

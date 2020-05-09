@@ -17,7 +17,7 @@ class InstituicaoDAO extends Connect
         switch ($table) {
             case 'nome':
                 // PHP7.3 or above -> '%$query%'
-                $instituicao = $this->_pdo->query("SELECT id, nome, email, endereco, cidade, uf FROM instituicoes WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
+                $instituicao = $this->_pdo->query("SELECT id, nome, email, endereco, cidade, uf FROM instituicoes WHERE lower(nome) LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'cidade':
                 $instituicao = $this->_pdo->query("SELECT id, nome, email, endereco, cidade, uf FROM instituicoes WHERE cidade LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
@@ -40,8 +40,8 @@ class InstituicaoDAO extends Connect
         $statement = $this->_pdo->prepare(
             'INSERT INTO instituicoes 
                 (
-                    id,
                     nome,
+                    email,
                     cidade,
                     uf,
                     endereco,
@@ -51,8 +51,8 @@ class InstituicaoDAO extends Connect
                     diretor_id
                 )
             VALUES(
-                null,
                 :nome,
+                :email,
                 :cidade,
                 :uf,
                 :endereco,
@@ -64,6 +64,7 @@ class InstituicaoDAO extends Connect
         
         $statement->execute([
             'nome' => $instituicao->getNome(),
+            'email' => $instituicao->getEmail(),
             'cidade' => $instituicao->getCidade(),
             'uf' => $instituicao->getUf(),
             'endereco' => $instituicao->getEndereco(),

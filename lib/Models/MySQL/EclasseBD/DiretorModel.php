@@ -12,6 +12,8 @@ final class DiretorModel {
     private $id;
     /* @var string $nome  */
     private $nome;
+    /* @var string $email  */
+    private $email;
     /* @var int $ativo  */
     private $ativo;
     /* @var string $created_at  */
@@ -59,6 +61,24 @@ final class DiretorModel {
     public function setNome(string $nome): DiretorModel
     {
         $this->nome = $nome;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */ 
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return self
+     */ 
+    public function setEmail(string $email): DiretorModel
+    {
+        $this->email = $email;
         return $this;
     }
 

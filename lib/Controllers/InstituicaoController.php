@@ -26,19 +26,18 @@ final class InstituicaoController {
     {
         $instituicaoDAO = new InstituicaoDAO();
         $instituicoes = '';
+        $instituicao = strtolower($args['instituicao']);
         if ($args == null) {
             $instituicoes = $instituicaoDAO->find('', '');
-        } else if (is_numeric($args['instituicao'])) {
-            $instituicoes = $instituicaoDAO->find('id', $args['instituicao']);
-        } else if (!is_numeric($args['instituicao'])) {
-            $instituicoes = $instituicaoDAO->find('nome',$args['instituicao']);
+        } else if (is_numeric($instituicao)) {
+            $instituicoes = $instituicaoDAO->find('id', $instituicao);
+        } else if (!is_numeric($instituicao)) {
+            $instituicoes = $instituicaoDAO->find('nome',$instituicao);
         }
+        
         if (count($instituicoes) === 0) {
-            $response = $response->withJson([
-                'success' => false,
-                'message' => 'nenhuma instituição cadastrada na base de dados'
-            ]);
-            return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+            $result = new ExceptionController(new EclasseException(''), "", DEVELOP['email'], 400, ERROR2002['id'], ERROR2002['value']);
+            return $result->test($request, $response, $args);
         }
         $response = $response->withJson($instituicoes);
         return $response
@@ -52,19 +51,18 @@ final class InstituicaoController {
         $instituicoes = '';
         if (strlen(is_numeric($args['cidade']))) 
         {
-            $result = new ExceptionController(new EclasseException(''), "não é permitido números", 400, '001', 'informe um nome de cidade válido');
+            $result = new ExceptionController(new EclasseException(''), "", DEVELOP['email'], 400, ERROR2002['id'], ERROR2002['value']);
             return $result->test($request, $response, $args);
+            
         }
         if (strlen($args['cidade']) < 3) 
         {
-            $result = new ExceptionController(new EclasseException(''), "necessário ao menos 3 caracteres", 400, '001', 'informe um nome de cidade válido');
+            $result = new ExceptionController(new EclasseException(''), "", DEVELOP['email'], 400, ERROR2002['id'], ERROR2002['value']);
             return $result->test($request, $response, $args);
         } 
         else if (!is_numeric($args['cidade'])) 
         {
             $instituicoes = $instituicaoDAO->find('cidade', $args['cidade']);
-            /* var_dump($instituicoes);
-            die; */
         }
         if (count(($instituicoes)) == 0) {
             $response = $response->withJson([
@@ -139,6 +137,7 @@ final class InstituicaoController {
         }
         $instituicao = new InstituicaoModel();
         $instituicao->setNome($data['nome']);
+        $instituicao->setEmail($data['email']);
         $instituicao->setEndereco($data['endereco']);
         $instituicao->setCidade($data['cidade']);
         $instituicao->setUf($data['uf']);
@@ -173,6 +172,7 @@ final class InstituicaoController {
         
         $instituicao = new InstituicaoModel();
         $instituicao->setNome($data['nome']);
+        $instituicao->setEmail($data['email']);
         $instituicao->setEndereco($data['endereco']);
         $instituicao->setCidade($data['cidade']);
         $instituicao->setUf($data['uf']);

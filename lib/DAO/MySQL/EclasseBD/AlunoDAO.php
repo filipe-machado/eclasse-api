@@ -14,7 +14,7 @@ class AlunoDAO extends Connect {
         $aluno = '';
         switch ($table) {
             case 'nome':
-                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
+                $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE lower(nome) LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
                 $aluno = $this->_pdo->query("SELECT * FROM alunos WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);

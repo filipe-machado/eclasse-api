@@ -12,6 +12,8 @@ class InstituicaoModel {
     private $id;
     /* @var string $nome  */
     private $nome;
+    /* @var string $email  */
+    private $email;
     /* @var string $endereco  */
     private $endereco;
     /* @var string $cidade  */
@@ -50,6 +52,24 @@ class InstituicaoModel {
     public function setNome(string $nome): InstituicaoModel
     {
         $this->nome = $nome;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */ 
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     * @return self
+     */ 
+    public function setEmail(string $email): InstituicaoModel
+    {
+        $this->email = $email;
         return $this;
     }
 

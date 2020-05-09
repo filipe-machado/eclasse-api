@@ -44,7 +44,7 @@ VALUES
 /* DELETE FROM usuarios; */
 /* DELETE FROM grupos; */
 
-INSERT INTO "eclasse_bd"."public"."grupos" (
+/* INSERT INTO "eclasse_bd"."public"."grupos" (
     ativo,
     created_at,
     id,
@@ -62,4 +62,6 @@ VALUES
     '["alunos", "professores", "usuários", "instituições", "documentos", "disciplinas", "diretores", "responsáveis", "turmas"]',
     '20200504 09:42:00',
     1
-  );
+  ); */
+
+

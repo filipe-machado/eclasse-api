@@ -28,8 +28,12 @@ class DocumentoDAO extends Connect {
 
     public function insertDocumento(DocumentoModel $documento): void
     {
-        $statement = $this->_pdo->prepare('INSERT INTO documentos VALUES(
-            null,
+        $statement = $this->_pdo->prepare('INSERT INTO documentos(
+            nome,
+            ativo,
+            created_at,
+            updated_at
+        ) VALUES(
             :nome,
             :ativo,
             :created_at,

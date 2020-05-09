@@ -15,7 +15,7 @@ class DiretorDAO extends Connect
         $diretor = '';
         switch ($table) {
             case 'nome':
-                $diretor = $this->_pdo->query("SELECT * FROM diretores WHERE nome LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
+                $diretor = $this->_pdo->query("SELECT * FROM diretores WHERE lower(nome) LIKE '%$query%';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'documento':
                 $diretor = $this->_pdo->query("SELECT * FROM diretores WHERE documento = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
@@ -32,9 +32,18 @@ class DiretorDAO extends Connect
 
     public function insertDiretor(DiretorModel $diretor): void 
     {
-        $statement = $this->_pdo->prepare('INSERT INTO diretores VALUE(
-            null, 
+        $statement = $this->_pdo->prepare('INSERT INTO diretores (
+            nome,
+            email,
+            ativo,
+            created_at,
+            updated_at,
+            inicio,
+            documento,
+            documento_id
+        ) VALUES (
             :nome,
+            :email,
             :ativo,
             :created_at,
             :updated_at,
@@ -45,6 +54,7 @@ class DiretorDAO extends Connect
         
         $statement->execute([
             'nome' => $diretor->getNome(),
+            'email' => $diretor->getEmail(),
             'ativo' => $diretor->getAtivo(),
             'created_at' => date('Ymd H:i:s'),
             'updated_at' => date('Ymd H:i:s'),
