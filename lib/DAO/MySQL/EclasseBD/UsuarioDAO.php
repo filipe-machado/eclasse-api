@@ -19,33 +19,34 @@ class UsuarioDAO extends Connect {
     public function getUsuario(int $query): array
     {
         $usuario = $this->_pdo->query(
-            "SELECT 
+            "SELECT
                 usuario,
                 email,
                 created_at,
                 updated_at,
                 ativo,
-                grupo_id 
+                grupo_id
             FROM usuarios WHERE id = $query;
             ")->fetchAll(\PDO::FETCH_ASSOC);
         return $usuario;
     }
 
     /**
-     * NOTA: Inserindo o '?' antes do tipo, é setado permissão 
-     * para retornar null ao invés do tipo informado
+     * NOTA: Inserindo o '?' antes do tipo, é setado permissão
+     * para retornar null ao invés do tipo inferido
      */
-    public function getUsuarioPorEmail(string $email): ?UsuarioModel 
+    public function getUsuarioPorEmail(string $email): ?UsuarioModel
     {
         $statement = $this->_pdo->prepare(
-            "SELECT 
-                id, 
-                usuario, 
-                email, 
-                senha 
-            FROM 
+            "SELECT
+                id,
+                usuario,
+                email,
+                senha,
+                grupo_id
+            FROM
                 usuarios
-            WHERE 
+            WHERE
                 email = :email"
         );
 
@@ -62,6 +63,7 @@ class UsuarioDAO extends Connect {
             ->setUsuario($usuarios[0]['usuario'])
             ->setEmail($usuarios[0]['email'])
             ->setSenha($usuarios[0]['senha'])
+            ->setGrupoId($usuarios[0]['grupo_id'])
             ->setCriadoEm($usuarios[0]['created_at'] ?? '')
             ->setAtualizadoEm($usuarios[0]['updated_at'] ?? '');
         return $usuario;
@@ -78,23 +80,33 @@ class UsuarioDAO extends Connect {
                         created_at,
                         updated_at,
                         ativo,
-                        grupo_id 
+                        grupo_id
                     FROM usuarios WHERE $table = $query;")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
-            
+            case 'email':
+                $usuario = $this->_pdo->query(
+                    "SELECT
+                        id,
+                        email,
+                        created_at,
+                        updated_at,
+                        ativo,
+                        grupo_id
+                    FROM usuarios WHERE $table = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
+                break;
             default:
             $usuario = $this->_pdo->query(
                 "SELECT
-                    usuario,
+                    id,
                     email,
                     created_at,
                     updated_at,
                     ativo,
-                    grupo_id 
+                    grupo_id
                 FROM usuarios WHERE $table LIKE '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
         }
-        
+
         return $usuario;
     }
 
@@ -109,7 +121,7 @@ class UsuarioDAO extends Connect {
                 created_at,
                 updated_at,
                 grupo_id
-            )            
+            )
             VALUES(
                 :usuario,
                 :email,
@@ -134,7 +146,7 @@ class UsuarioDAO extends Connect {
     public function putUsuario(UsuarioModel $usuario, int $query): void
     {
         $statement = $this->_pdo->prepare(
-            'UPDATE usuarios 
+            'UPDATE usuarios
             SET
                 usuario = :usuario,
                 email = :email,
@@ -178,7 +190,7 @@ class UsuarioDAO extends Connect {
         }
 
         $statement = $this->_pdo->prepare(
-            "UPDATE usuarios 
+            "UPDATE usuarios
             SET
                 $set
             WHERE id = $query;"

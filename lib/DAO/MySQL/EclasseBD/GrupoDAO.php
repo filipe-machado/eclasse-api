@@ -14,19 +14,16 @@ class GrupoDAO extends Connect {
         $grupo = '';
         switch ($table) {
             case 'ativo':
-                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos WHERE ativo = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
-                break;
-            case 'valor':
-                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos WHERE valor = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
+                $grupo = $this->_pdo->query("SELECT id, ativo, nome, permissoes FROM grupos WHERE ativo = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'nome':
-                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos WHERE nome = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
+                $grupo = $this->_pdo->query("SELECT id, ativo, nome, permissoes FROM grupos WHERE nome = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             case 'id':
-                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
+                $grupo = $this->_pdo->query("SELECT id, ativo, nome, permissoes FROM grupos WHERE id = '$query';")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
             default:
-                $grupo = $this->_pdo->query("SELECT id, ativo, nome, valor, permissoes FROM grupos;")->fetchAll(\PDO::FETCH_ASSOC);
+                $grupo = $this->_pdo->query("SELECT id, ativo, nome, permissoes FROM grupos;")->fetchAll(\PDO::FETCH_ASSOC);
                 break;
         }
         return $grupo;
@@ -37,7 +34,6 @@ class GrupoDAO extends Connect {
         $statement = $this->_pdo->prepare(
             "INSERT INTO grupos(
                 ativo,
-                valor,
                 nome,
                 permissoes,
                 created_at,
@@ -45,9 +41,8 @@ class GrupoDAO extends Connect {
             )
             VALUES(
                 :ativo,
-                :valor,
                 :nome,
-                :permissoes,
+                ARRAY [:permissoes],
                 :created_at,
                 :updated_at
             )
@@ -56,7 +51,6 @@ class GrupoDAO extends Connect {
 
         $statement->execute([
             'ativo' => $grupo->getAtivo(),
-            'valor' => $grupo->getValor(),
             'nome' => $grupo->getNome(),
             'permissoes' => $grupo->getPermissoes(),
             'created_at' => $grupo->getCreatedAt(),
@@ -67,10 +61,9 @@ class GrupoDAO extends Connect {
     public function putGrupo(GrupoModel $grupo, int $query): void
     {
         $statement = $this->_pdo->prepare(
-            'UPDATE grupos 
+            'UPDATE grupos
             SET
                 ativo = :ativo,
-                valor = :valor,
                 nome = :nome,
                 permissoes = :permissoes,
                 updated_at = :updated_at
@@ -79,7 +72,6 @@ class GrupoDAO extends Connect {
         $statement->execute([
             'id' => $query,
             'ativo' => $grupo->getAtivo(),
-            'valor' => $grupo->getValor(),
             'nome' => $grupo->getNome(),
             'permissoes' => $grupo->getPermissoes(),
             'updated_at' => $grupo->getUpdatedAt()
@@ -96,7 +88,6 @@ class GrupoDAO extends Connect {
         $set = 'updated_at = :updated_at, ';
         $execute = ['updated_at' => $grupo->getUpdatedAt()];
         $x = 1;
-        $y = 1;
         foreach ($columns as $column => $value) {
             $set .= "$column = :$column";
             if ($x < count($columns)) {
@@ -109,7 +100,7 @@ class GrupoDAO extends Connect {
         }
 
         $statement = $this->_pdo->prepare(
-            "UPDATE grupos 
+            "UPDATE grupos
             SET
                 $set
             WHERE id = $query;"

@@ -1,5 +1,5 @@
 /**
- * Para criar as tabelas, execute todo o SQL abaixo 
+ * Para criar as tabelas, execute todo o SQL abaixo
  * cada tabela deve ser executada separadamente
  * basta exetar na ordem descrita
  * PS: Este SQL é para POSTGRE
@@ -208,7 +208,7 @@ CREATE TABLE IF NOT EXISTS entidade_status (
   id SERIAL,
   status_valor VARCHAR(16) NOT NULL,
   created_at VARCHAR (16),
-  updated_at VARCHAR (16),  
+  updated_at VARCHAR (16),
   UNIQUE(id)
 );
 

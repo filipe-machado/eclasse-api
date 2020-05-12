@@ -13,7 +13,6 @@ use App\Models\MySQL\EclasseBD\DiretorModel as DiretorModel;
 use const src\DEVELOP;
 use const src\ERROR1001;
 use const src\ERROR1002;
-use const src\ERROR2001;
 use const src\ERROR8001;
 
 final class DiretorController {

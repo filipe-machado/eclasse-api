@@ -16,8 +16,6 @@ class GrupoModel {
     private $nome;
     /* @var int $ativo  */
     private $ativo;
-    /* @var int $valor  */
-    private $valor;
     /* @var string $created_at  */
     private $created_at;
     /* @var string $updated_at  */
@@ -92,24 +90,6 @@ class GrupoModel {
     public function setAtivo(int $ativo): GrupoModel
     {
         $this->ativo = $ativo;
-        return $this;
-    }
-
-    /**
-     * @return int
-     */ 
-    public function getValor(): int
-    {
-        return $this->valor;
-    }
-
-    /**
-     * @param int $updated_at
-     * @return self
-     */ 
-    public function setValor(int $valor): GrupoModel
-    {
-        $this->valor = $valor;
         return $this;
     }
 

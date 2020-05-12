@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\DAO\MySQL\EclasseBD\GrupoDAO;
 use App\DAO\MySQL\EclasseBD\TokenDAO;
 use App\DAO\MySQL\EclasseBD\UsuarioDAO;
 use App\Exception\EclasseException;
@@ -23,15 +24,15 @@ use const src\{
 };
 
 final class AuthController {
-    
-    public function login(Request $request, Response $response, array $args): Response 
+
+    public function login(Request $request, Response $response, array $args): Response
     {
         $data = $request->getParsedBody();
-        
+
         $email = $data['email'];
         $senha = $data['senha'];
 
-        if (strlen($email) == 0) 
+        if (strlen($email) == 0)
         {
             $result = new ExceptionController(new EclasseException(''), 'usuário não informado', DEVELOP['email'], 400, ERROR0001['id'], ERROR0001['value']);
             return $result->test($request, $response, $args);
@@ -51,33 +52,37 @@ final class AuthController {
 
         $usuarioDAO = new UsuarioDAO();
         $usuario = $usuarioDAO->getUsuarioPorEmail($email);
-        
-        if (is_null($usuario)) 
+
+        if (is_null($usuario))
         {
             $result = new ExceptionController(new EclasseException(''), 'usuário não cadastrado', DEVELOP['email'], 400, ERROR0003['id'], ERROR0003['value']);
             return $result->test($request, $response, $args);
         }
-            
-        if (!password_verify($senha, $usuario->getSenha())) 
+
+        if (!password_verify($senha, $usuario->getSenha()))
         {
             $result = new ExceptionController(new EclasseException(''), 'senha incorreta', DEVELOP['email'], 400, ERROR0004['id'], ERROR0004['value']);
             return $result->test($request, $response, $args);
         }
 
-        return $this->definePayload($usuario, $expiredAt, $response);
+        $grupo = new GrupoDAO();
+        $permissoes = $grupo->find('id', $usuario->getGrupoId());
+        $menu = explode(',', $permissoes[0]['permissoes']);
+
+        return $this->definePayload($usuario, $expiredAt, $response, $menu);
     }
 
-    public function register(Request $request, Response $response, array $args): Response 
+    public function register(Request $request, Response $response, array $args): Response
     {
         $data = $request->getParsedBody();
         $email = $data['email'];
         $senha = $data['senha'];
         $expiredAt = $data['expire'] ?? (new DateTime())->modify('+2 days')->format('Y-m-d H:i:s');
-        
+
         $usuarioDAO = new UsuarioDAO();
         $usuario = $usuarioDAO->getUsuarioPorEmail($email);
 
-        if ($usuario) 
+        if ($usuario)
         {
             $result = new ExceptionController(new EclasseException(''), 'email já cadastrado', DEVELOP['email'], 400, ERROR0005['id'], ERROR0005['value']);
             return $result->test($request, $response, $args);
@@ -112,7 +117,7 @@ final class AuthController {
         return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
     }
 
-    public function refreshToken(Request $request, Response $response, array $args): Response 
+    public function refreshToken(Request $request, Response $response, array $args): Response
     {
         $data = $request->getParsedBody();
         $refreshToken = $data['refresh_token'];
@@ -123,25 +128,25 @@ final class AuthController {
             getenv('JWT_SECRET_KEY'),
             ['HS256']
         );
-        
+
         $tokenDAO = new TokenDAO();
         $exists = $tokenDAO->verifyRefreshToken($refreshToken);
-        
+
         if (!$exists)
             return $response->withStatus(401);
-        
+
         $tokenDAO->disableToken($refreshToken);
-        
+
         $usuarioDAO = new UsuarioDAO();
         $usuario = $usuarioDAO->getUsuarioPorEmail($refreshTokenDecoded->email);
-        
-        if (is_null($usuario)) 
+
+        if (is_null($usuario))
             return $response->withStatus(401);
 
         return $this->definePayload($usuario, $expiredAt, $response);
     }
 
-    public function definePayload($usuario, $expiredAt, $response) 
+    public function definePayload($usuario, $expiredAt, $response, $menu)
     {
         $tokenPayload = [
             'sub' => $usuario->getUsuarioId(),
@@ -168,12 +173,14 @@ final class AuthController {
         $tokenDAO->createToken($tokenModel);
 
         $response = $response->withJson([
-            "token" => $token,
-            "refresh_token" => $refreshToken,
-            "id" => $usuario->getUsuarioId(),
+            'token' => $token,
+            'refresh_token' => $refreshToken,
+            'id' => $usuario->getUsuarioId(),
+            'usuario' => $usuario->getUsuario(),
+            'permissoes' => $menu,
             'success' => true,
-            'message' => 'usuário logado com sucesso'
-        ]);        
+            'message' => 'usuário logado com sucesso',
+        ]);
 
         return $response;
     }

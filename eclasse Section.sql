@@ -1,5 +1,5 @@
 /* SELECT uuid_generate_v4(); */
-/* 
+/*
 INSERT INTO "eclasse_bd"."public"."grupos" (
     ativo,
     created_at,
@@ -63,5 +63,4 @@ VALUES
     '20200504 09:42:00',
     1
   ); */
-
 

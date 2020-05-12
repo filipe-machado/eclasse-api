@@ -46,18 +46,17 @@ final class GrupoController {
     {
         $data = $request->getParsedBody();
         $grupoDAO = new grupoDAO();
-        $valor = $grupoDAO->find('valor', $data['valor']);
-        if (count($valor) > 0) {
+        $nome = $grupoDAO->find('nome', $data['nome']);
+        if (count($nome) > 0) {
             $response = $response->withJson([
                 'success' => false,
-                'message' => 'grupo com este valor já cadastrado'
+                'message' => 'grupo com este nome já cadastrado'
             ]);
 
             return $response->withHeader('Content-Type', 'application/json')->withStatus(409);
         }
 
         $grupo = new GrupoModel();
-        $grupo->setValor($data['valor']);
         $grupo->setPermissoes($data['permissoes']);
         $grupo->setNome($data['nome']);
         $grupo->setAtivo($data['ativo'] ?? 1);
@@ -87,7 +86,6 @@ final class GrupoController {
         }
 
         $grupo = new grupoModel();
-        $grupo->setValor($data['valor']);
         $grupo->setNome($data['nome']);
         $grupo->setPermissoes($data['permissoes']);
         $grupo->setAtivo($data['ativo']);
@@ -117,8 +115,7 @@ final class GrupoController {
         }
 
         $grupo = new grupoModel();
-        /* isset($data['valor']) && $grupo->setValor($data['valor']);
-        isset($data['ativo']) && $grupo->setAtivo($data['ativo']);
+        /* isset($data['ativo']) && $grupo->setAtivo($data['ativo']);
         isset($data['nome']) && $grupo->setNome($data['nome']);
         isset($data['permissoes']) && $grupo->setPermissoes($data['permissoes']);
         isset($data['created_at']) && $grupo->setCreatedAt($data['created_at']); */
