@@ -1,2 +1,2 @@
 # RESTAURA O BANCO DE DADOS
-cat backup.sql | docker exec -i eclasse_database /usr/bin/mysql -u root --password=guitar24 eclasse_bd
+cat dump_19-05-2020_19_10_45.sql | docker exec -i eclasse_database psql postgres
