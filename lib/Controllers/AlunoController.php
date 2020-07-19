@@ -118,7 +118,7 @@ final class AlunoController {
             'message' => 'aluno atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function patchAlunos(Request $request, Response $response, array $args): Response
@@ -155,7 +155,7 @@ final class AlunoController {
             'message' => 'aluno atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function deleteAlunos(Request $request, Response $response, array $args): Response
@@ -180,6 +180,6 @@ final class AlunoController {
             'message' => 'aluno removido com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 }

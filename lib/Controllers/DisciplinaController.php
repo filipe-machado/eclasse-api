@@ -99,7 +99,7 @@ final class DisciplinaController {
             'message' => 'disciplina atualizada com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function patchDisciplinas(Request $request, Response $response, array $args): Response
@@ -128,7 +128,7 @@ final class DisciplinaController {
             'message' => 'disciplina atualizada com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function deleteDisciplinas(Request $request, Response $response, array $args): Response
@@ -149,6 +149,6 @@ final class DisciplinaController {
             'message' => 'disciplina removida com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 }

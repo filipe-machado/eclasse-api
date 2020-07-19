@@ -25,11 +25,11 @@ final class UsuarioController {
     {
         $usuarioDAO = new UsuarioDAO();
         $usuarios = '';
-        
-        if (count($args) == 0) 
+
+        if (count($args) == 0)
         {
             $usuarios = $usuarioDAO->getAllUsuarios();
-        }   
+        }
         else if (is_numeric($args['usuario']))
         {
             $usuarios = $usuarioDAO->getUsuario($args['usuario']);
@@ -38,7 +38,7 @@ final class UsuarioController {
         {
             $usuarios = $usuarioDAO->find('usuario',$args['usuario']);
         }
-        if (count($usuarios) == 0) 
+        if (count($usuarios) == 0)
         {
             $response = $response->withJson([
                 'success' => false,
@@ -69,7 +69,7 @@ final class UsuarioController {
             ]);
             return $response->withHeader('Content-Type', 'application/json')->withStatus(409);
         }
-        
+
         $usuario = new UsuarioModel();
         $usuario->setUsuario($data['usuario']);
         $usuario->setEmail($data['email']);
@@ -117,7 +117,7 @@ final class UsuarioController {
             'message' => 'usuário atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function patchUsuarios(Request $request, Response $response, array $args): Response
@@ -149,7 +149,7 @@ final class UsuarioController {
             'message' => 'usuário atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function deleteUsuarios(Request $request, Response $response, array $args): Response
@@ -170,6 +170,6 @@ final class UsuarioController {
             'message' => 'usuário removido com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 }

@@ -21,7 +21,7 @@ use const src\{
  * Instituicao
  */
 final class InstituicaoController {
-    
+
     public function getInstituicoes(Request $request, Response $response, array $args): Response
     {
         $instituicaoDAO = new InstituicaoDAO();
@@ -34,7 +34,7 @@ final class InstituicaoController {
         } else if (!is_numeric($instituicao)) {
             $instituicoes = $instituicaoDAO->find('nome',$instituicao);
         }
-        
+
         if (count($instituicoes) === 0) {
             $result = new ExceptionController(new EclasseException(''), "", DEVELOP['email'], 400, ERROR2002['id'], ERROR2002['value']);
             return $result->test($request, $response, $args);
@@ -45,22 +45,22 @@ final class InstituicaoController {
             ->withStatus(200);
     }
 
-    public function getInstituicoesPorCidade(Request $request, Response $response, array $args): Response 
+    public function getInstituicoesPorCidade(Request $request, Response $response, array $args): Response
     {
         $instituicaoDAO = new InstituicaoDAO();
         $instituicoes = '';
-        if (strlen(is_numeric($args['cidade']))) 
+        if (strlen(is_numeric($args['cidade'])))
         {
             $result = new ExceptionController(new EclasseException(''), "", DEVELOP['email'], 400, ERROR2002['id'], ERROR2002['value']);
             return $result->test($request, $response, $args);
-            
+
         }
-        if (strlen($args['cidade']) < 3) 
+        if (strlen($args['cidade']) < 3)
         {
             $result = new ExceptionController(new EclasseException(''), "", DEVELOP['email'], 400, ERROR2002['id'], ERROR2002['value']);
             return $result->test($request, $response, $args);
-        } 
-        else if (!is_numeric($args['cidade'])) 
+        }
+        else if (!is_numeric($args['cidade']))
         {
             $instituicoes = $instituicaoDAO->find('cidade', $args['cidade']);
         }
@@ -72,7 +72,7 @@ final class InstituicaoController {
             return $response
                 ->withHeader('Content-Type', 'application/json')
                 ->withStatus(400);
-        } 
+        }
         $response = $response->withJson($instituicoes);
         return $response
             ->withHeader('Content-Type', 'application/json')
@@ -88,13 +88,13 @@ final class InstituicaoController {
             $result = new ExceptionController(new EclasseException(''), "não é permitido números", 400, '002', 'informe uma sigla de UF válida');
             return $result->test($request, $response, $args);
         }
-        
-        if (strlen($args['uf']) !== 2) 
+
+        if (strlen($args['uf']) !== 2)
         {
             $result = new ExceptionController(new EclasseException(''), "necessário 2 caracteres", 400, '002', 'informe uma sigla de UF válida');
             return $result->test($request, $response, $args);
-        } 
-        
+        }
+
         else if (!is_numeric($args['uf'])) {
             $instituicoes = $instituicaoDAO->find('uf', $args['uf']);
         }
@@ -122,7 +122,7 @@ final class InstituicaoController {
         $nome = $instituicaoDAO->find('nome', $data['nome']);
         $cidade = $instituicaoDAO->find('cidade', $data['cidade']);
         $diretor = isset($data['diretor']) ? $diretorDAO->find('id', $data['diretor']): '';
-        if(count($nome) && count($cidade) > 0) 
+        if(count($nome) && count($cidade) > 0)
         {
             $response = $response->withJson([
                 'success' => false,
@@ -146,7 +146,7 @@ final class InstituicaoController {
         $instituicao->setCriadoEm(date('Ymd H:i:s'));
         $instituicao->setAtualizadoEm(date('Ymd H:i:s'));
         $instituicaoDAO->insertInstituicao($instituicao);
-        
+
         $response = $response->withJson([
             'success' => true,
             'message' => 'instituicao cadastrada com sucesso'
@@ -159,17 +159,17 @@ final class InstituicaoController {
     {
         $data = $request->getParsedBody();
         $instituicaoDAO = new InstituicaoDAO();
-        if (!isset($data['id'])) 
+        if (!isset($data['id']))
         {
             $result = new ExceptionController(new EclasseException(''), 'o id não foi informado', DEVELOP['email'], 400, ERROR2001['id'], ERROR2001['value']);
             return $result->test($request, $response, $args);
         }
-        if (count($instituicaoDAO->find('id', $data['id'])) === 0) 
+        if (count($instituicaoDAO->find('id', $data['id'])) === 0)
         {
             $result = new ExceptionController(new EclasseException(''), '', DEVELOP['email'], 400, ERROR2002['id'], ERROR2002['value']);
             return $result->test($request, $response, $args);
         }
-        
+
         $instituicao = new InstituicaoModel();
         $instituicao->setNome($data['nome']);
         $instituicao->setEmail($data['email']);
@@ -178,28 +178,28 @@ final class InstituicaoController {
         $instituicao->setUf($data['uf']);
         $instituicao->setDiretorId($data['diretor_id']);
         $instituicao->setAtivo($data['ativo']);
-        $instituicao->setAtualizadoEm(date('Ymd H:i:s'));        
+        $instituicao->setAtualizadoEm(date('Ymd H:i:s'));
 
         $instituicaoDAO->putInstituicao($instituicao, $data['id']);
-        
+
         $response = $response->withJson([
             'success' => true,
             'message' => 'instituicao atualizada com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function patchInstituicoes(Request $request, Response $response, array $args): Response
     {
         $data = $request->getParsedBody();
         $instituicaoDAO = new InstituicaoDAO();
-        if (!isset($data['id'])) 
+        if (!isset($data['id']))
         {
             $result = new ExceptionController(new EclasseException(''), 'o id não foi informado', DEVELOP['email'], 400, ERROR2001['id'], ERROR2001['value']);
             return $result->test($request, $response, $args);
         }
-        if (count($instituicaoDAO->find('id', $data['id'])) === 0) 
+        if (count($instituicaoDAO->find('id', $data['id'])) === 0)
         {
             $result = new ExceptionController(new EclasseException(''), '', DEVELOP['email'], 400, ERROR2002['id'], ERROR2002['value']);
             return $result->test($request, $response, $args);
@@ -214,15 +214,15 @@ final class InstituicaoController {
         isset($data['ativo']) && $instituicao->setAtivo($data['ativo']);
         isset($data['created_at']) && $instituicao->setCriadoEm($data['created_at']); */
         $instituicao->setAtualizadoEm(date('Ymd H:i:s'));
-        
+
         $instituicaoDAO->patchInstituicao($instituicao, $data, $data['id']);
-        
+
         $response = $response->withJson([
             'success' => true,
             'message' => 'instituicao atualizada com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function deleteInstituicoes(Request $request, Response $response, array $args): Response
@@ -242,7 +242,7 @@ final class InstituicaoController {
             'success' => true,
             'message' => 'instituicao removida com sucesso'
         ]);
-            
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 }

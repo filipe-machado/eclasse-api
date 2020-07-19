@@ -58,7 +58,7 @@ final class ProfessorController {
 
             return $response->withHeader('Content-Type', 'application/json')->withStatus(409);
         }
-        
+
         $professor = new ProfessorModel();
         $professor->setNome($data['nome']);
         $professor->setDocumento($data['documento']);
@@ -105,7 +105,7 @@ final class ProfessorController {
             'message' => 'professor atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function patchProfessores(Request $request, Response $response, array $args): Response
@@ -137,7 +137,7 @@ final class ProfessorController {
             'message' => 'professor atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function deleteProfessores(Request $request, Response $response, array $args): Response
@@ -158,6 +158,6 @@ final class ProfessorController {
             'message' => 'professor removido com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 }

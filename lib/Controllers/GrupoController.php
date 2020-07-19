@@ -98,7 +98,7 @@ final class GrupoController {
             'message' => 'grupo atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function patchGrupos(Request $request, Response $response, array $args): Response
@@ -128,7 +128,7 @@ final class GrupoController {
             'message' => 'grupo atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function deleteGrupos(Request $request, Response $response, array $args): Response
@@ -149,6 +149,6 @@ final class GrupoController {
             'message' => 'grupo removido com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 }

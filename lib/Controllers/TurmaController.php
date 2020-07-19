@@ -98,7 +98,7 @@ final class TurmaController {
             'message' => 'turma atualizada com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function patchTurmas(Request $request, Response $response, array $args): Response
@@ -127,7 +127,7 @@ final class TurmaController {
             'message' => 'turma atualizada com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function deleteTurmas(Request $request, Response $response, array $args): Response
@@ -145,13 +145,13 @@ final class TurmaController {
 
             return $response->withHeader('Content-Type', 'application/json')->withStatus(400);
         }
-        
+
         $turmaDAO->deleteTurma($args['turma']);
         $response = $response->withJson([
             'success' => true,
             'message' => 'turma removida com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 }

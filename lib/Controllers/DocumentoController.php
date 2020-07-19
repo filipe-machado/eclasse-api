@@ -97,7 +97,7 @@ final class DocumentoController {
             'message' => 'documento atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function patchDocumentos(Request $request, Response $response, array $args): Response
@@ -126,7 +126,7 @@ final class DocumentoController {
             'message' => 'documento atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function deleteDocumentos(Request $request, Response $response, array $args): Response
@@ -147,6 +147,6 @@ final class DocumentoController {
             'message' => 'documento removido com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 }

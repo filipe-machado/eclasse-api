@@ -107,7 +107,7 @@ final class ResponsavelController {
             'message' => 'responsável atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function patchResponsaveis(Request $request, Response $response, array $args): Response
@@ -140,7 +140,7 @@ final class ResponsavelController {
             'message' => 'responsável atualizado com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(201);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 
     public function deleteResponsaveis(Request $request, Response $response, array $args): Response
@@ -161,6 +161,6 @@ final class ResponsavelController {
             'message' => 'responsável removido com sucesso'
         ]);
 
-        return $response->withHeader('Content-Type', 'application/json')->withStatus(200);
+        return $response->withHeader('Content-Type', 'application/json')->withStatus(204);
     }
 }
