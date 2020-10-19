@@ -172,7 +172,7 @@ CREATE TABLE IF NOT EXISTS entidades (
   fotosUrls VARCHAR (1024),
   created_at VARCHAR (16),
   updated_at VARCHAR (16),
-  entidade_estatus_id INTEGER REFERENCES entidade_status(id) MATCH SIMPLE
+  entidade_status_id INTEGER REFERENCES entidade_status(id) MATCH SIMPLE
   ON UPDATE NO ACTION ON DELETE NO ACTION,
   documento_id INTEGER REFERENCES documento(id) MATCH SIMPLE
     ON UPDATE NO ACTION ON DELETE NO ACTION,

@@ -32,7 +32,7 @@ class ResponsavelDAO extends Connect {
     public function insertResponsavel(ResponsavelModel $responsavel): void
     {
         $statement = $this->_pdo->prepare(
-            'INSERT INTO responsaveis 
+            'INSERT INTO responsaveis
             (
                 id,
                 nome,
@@ -76,7 +76,7 @@ class ResponsavelDAO extends Connect {
     public function putResponsavel(ResponsavelModel $responsavel, int $query): void
     {
         $statement = $this->_pdo->prepare(
-            'UPDATE responsaveis 
+            'UPDATE responsaveis
             SET
                 nome = :nome,
                 telefone = :telefone,
@@ -124,7 +124,7 @@ class ResponsavelDAO extends Connect {
         }
 
         $statement = $this->_pdo->prepare(
-            "UPDATE responsaveis 
+            "UPDATE responsaveis
             SET
                 $set
             WHERE id = $query;"

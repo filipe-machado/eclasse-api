@@ -31,7 +31,7 @@ class ResponsavelModel {
 
     /**
      * @return int
-     */ 
+     */
     public function getId(): int
     {
         return $this->id;
@@ -40,15 +40,16 @@ class ResponsavelModel {
     /**
      * @param int $id
      * @return self
-     */ 
+     */
     public function setId(int $id): ResponsavelModel
     {
-        $this->id = $id;        return $this;
+        $this->id = $id;
+        return $this;
     }
 
     /**
      * @return string
-     */ 
+     */
     public function getNome(): string
     {
         return $this->nome;
@@ -57,7 +58,7 @@ class ResponsavelModel {
     /**
      * @param string $nome
      * @return self
-     */ 
+     */
     public function setNome(string $nome): ResponsavelModel
     {
         $this->nome = $nome;
@@ -66,7 +67,7 @@ class ResponsavelModel {
 
     /**
      * @return string
-     */ 
+     */
     public function getEmail(): string
     {
         return $this->email;
@@ -75,7 +76,7 @@ class ResponsavelModel {
     /**
      * @param string $email
      * @return self
-     */ 
+     */
     public function setEmail(string $email): ResponsavelModel
     {
         $this->email = $email;
@@ -84,7 +85,7 @@ class ResponsavelModel {
 
     /**
      * @return string
-     */ 
+     */
     public function getTelefone(): string
     {
         return $this->telefone;
@@ -93,7 +94,7 @@ class ResponsavelModel {
     /**
      * @param string $telefone
      * @return self
-     */ 
+     */
     public function setTelefone(string $telefone): ResponsavelModel
     {
         $this->telefone = $telefone;
@@ -102,7 +103,7 @@ class ResponsavelModel {
 
     /**
      * @return string
-     */ 
+     */
     public function getEndereco(): string
     {
         return $this->endereco;
@@ -111,7 +112,7 @@ class ResponsavelModel {
     /**
      * @param string $endereco
      * @return self
-     */ 
+     */
     public function setEndereco(string $endereco): ResponsavelModel
     {
         $this->endereco = $endereco;
@@ -120,7 +121,7 @@ class ResponsavelModel {
 
     /**
      * @return string
-     */ 
+     */
     public function getDocumento(): string
     {
         return $this->documento;
@@ -129,7 +130,7 @@ class ResponsavelModel {
     /**
      * @param string $documento
      * @return self
-     */ 
+     */
     public function setDocumento(string $documento): ResponsavelModel
     {
         $this->documento = $documento;
@@ -138,7 +139,7 @@ class ResponsavelModel {
 
     /**
      * @return int
-     */ 
+     */
     public function getDocumentoId(): int
     {
         return $this->documento_id;
@@ -147,7 +148,7 @@ class ResponsavelModel {
     /**
      * @param int $documento_id
      * @return self
-     */ 
+     */
     public function setDocumentoId(int $documento_id): ResponsavelModel
     {
         $this->documento_id = $documento_id;
@@ -156,7 +157,7 @@ class ResponsavelModel {
 
     /**
      * @return int
-     */ 
+     */
     public function getAtivo(): int
     {
         return $this->ativo;
@@ -165,7 +166,7 @@ class ResponsavelModel {
     /**
      * @param int $ativo
      * @return self
-     */ 
+     */
     public function setAtivo(int $ativo): ResponsavelModel
     {
         $this->ativo = $ativo;
@@ -174,7 +175,7 @@ class ResponsavelModel {
 
     /**
      * @return string
-     */ 
+     */
     public function getCreatedAt(): string
     {
         return $this->created_at;
@@ -183,7 +184,7 @@ class ResponsavelModel {
     /**
      * @param string $created_at
      * @return self
-     */ 
+     */
     public function setCreatedAt(string $created_at): ResponsavelModel
     {
         $this->created_at = $created_at;
@@ -192,7 +193,7 @@ class ResponsavelModel {
 
     /**
      * @return string
-     */ 
+     */
     public function getUpdatedAt(): string
     {
         return $this->updated_at;
@@ -201,7 +202,7 @@ class ResponsavelModel {
     /**
      * @param string $updated_at
      * @return self
-     */ 
+     */
     public function setUpdatedAt(string $updated_at): ResponsavelModel
     {
         $this->updated_at = $updated_at;
