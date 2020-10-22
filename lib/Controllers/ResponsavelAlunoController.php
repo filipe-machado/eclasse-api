@@ -8,6 +8,6 @@ use App\DAO\MySQL\EclasseBD\ResponsavelDAO;
 use App\Exception\EclasseException;
 use App\Models\MySQL\EclasseBD\ResponsavelModel;
 
-class ResponsavelAlunoController {
-
+class ResponsavelAlunoController
+{
 }
