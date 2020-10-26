@@ -1,4 +1,4 @@
-version: "3.1"
+# version: '3.1'
 
 # services:
 #   db:
@@ -14,12 +14,50 @@ version: "3.1"
 #     ports:
 #       - 3306:3306
 
+# services:
+#   db:
+#     image: postgres
+#     restart: always
+#     container_name: eclasse_database
+#     environment:
+#       POSTGRES_USER: root
+#       POSTGRES_PASSWORD: guitar24
+#       POSTGRES_DB: eclasse_bd
+
+
+version: "3.1"
+
 services:
-  db:
+  php:
+    build: "./php/"
+    networks:
+      - backend
+    volumes:
+      - ./public_html/:/var/www/html/
+  apache:
+    build: "./apache/"
+    depends_on:
+      - php
+      - postgres
+    networks:
+      - frontend
+      - backend
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public_html/:/var/www/html/
+
+  postgres:
     image: postgres
     restart: always
-    container_name: eclasse_database
+    container_name: eclasse_teste_database
+    networks:
+      - backend
     environment:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: guitar24
       POSTGRES_DB: eclasse_bd
+
+networks:
+  frontend:
+  backend:
